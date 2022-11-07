@@ -94,7 +94,7 @@ class TaskController{
             }
             
         }
-            header("Location: http://localhost/TPE/" . "store/");
+            header("Location: http://localhost/TPE/" . "home");
             return;
     }
     
@@ -106,6 +106,9 @@ class TaskController{
                 $this->view->showcategoriesForm($action, $categorie->nombre);
             }
             $this->view->showcategoriesForm($action);
+        }else{
+            header("Location: http://localhost/TPE/" . "home");
+            return;
         }
     }
 
@@ -115,13 +118,13 @@ class TaskController{
             $name = $_POST["name"];
             $this->model->newCategorie($name);
         }
-        header("Location: http://localhost/TPE/" . "store/");
+        header("Location: http://localhost/TPE/" . "home");
         return;
     }
     
     // EDIT PRODUCT
     public function editProduct($id){
-        if($authHelper->validateAdmin() == true){
+        if($this->authHelper->validateAdmin() == true){
 
             
             $name = $_POST["name"];
@@ -143,10 +146,10 @@ class TaskController{
        
     // DELETE PRODUCT  
     public function deleteProduct($id){
-        if($authHelper->validateAdmin() == true){
+        if($this->authHelper->validateAdmin() == true){
             $this->model->delete($id);
         }
-        header("Location: http://localhost/TPE/" . "store/");
+        header("Location: http://localhost/TPE/" . "home");
         return;
     }
 
@@ -154,16 +157,18 @@ class TaskController{
         if($this->authHelper->validateAdmin() == true){
             $categories = $this->model->getCategories();
             $this->view->CategoriesList($categories);
+        }else{ 
+            header("Location: http://localhost/TPE/" . "home");
+            return;
         }
     }
 
     function updateCategorie($id){
         if($this->authHelper->validateAdmin() == true){
             $name = $_POST["name"];
-            $categorie = $this->model->getCategorieById($id);
             $this->model->updateCategorie($id, $name);
         }
-        header("Location: http://localhost/TPE/" . "store/");
+        header("Location: http://localhost/TPE/" . "home");
         return;
     }
 
@@ -171,7 +176,8 @@ class TaskController{
         if($this->authHelper->validateAdmin() == true){
             $this->model->deleteCategorie($id);
         }
-        header("Location: http://localhost/TPE/" . "store/");
+        header("Location: http://localhost/TPE/" . "home");
         return;
+        
     }
 }

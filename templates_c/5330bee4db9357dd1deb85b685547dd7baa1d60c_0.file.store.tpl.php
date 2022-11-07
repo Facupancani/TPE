@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.47, created on 2022-11-05 17:12:58
+/* Smarty version 3.1.47, created on 2022-11-07 01:08:20
   from 'C:\xampp\htdocs\TPE\templates\store.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.47',
-  'unifunc' => 'content_63668b8acc62f8_15493016',
+  'unifunc' => 'content_63684c745ebf98_67710265',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '5330bee4db9357dd1deb85b685547dd7baa1d60c' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TPE\\templates\\store.tpl',
-      1 => 1667664776,
+      1 => 1667779676,
       2 => 'file',
     ),
   ),
@@ -20,10 +20,12 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_63668b8acc62f8_15493016 (Smarty_Internal_Template $_smarty_tpl) {
-?><div>
-    <a href='categorias'> Editar categorias</a>
-</div>
+function content_63684c745ebf98_67710265 (Smarty_Internal_Template $_smarty_tpl) {
+if ($_smarty_tpl->tpl_vars['admin']->value == TRUE) {?>
+    <div>
+        <a href='categorias'> Editar categorias</a>
+    </div>
+<?php }?>
 
 <ul id='products_container'>
 
@@ -39,11 +41,12 @@ $_smarty_tpl->tpl_vars['product']->do_else = false;
 ?>
                     <?php if ($_smarty_tpl->tpl_vars['product']->value->id_categoria == $_smarty_tpl->tpl_vars['idCat']->value && $_smarty_tpl->tpl_vars['product']->value->tipo == $_smarty_tpl->tpl_vars['type']->value) {?>
                         <div class='product'>
-                            <img class='product_photo' src='<?php echo $_smarty_tpl->tpl_vars['product']->value->imagen;?>
-'/>
                             <a href='show/<?php echo $_smarty_tpl->tpl_vars['product']->value->id;?>
-'> <?php echo $_smarty_tpl->tpl_vars['product']->value->nombre;?>
- </a>
+'>
+                            <img class='product_photo' src='<?php echo $_smarty_tpl->tpl_vars['product']->value->imagen;?>
+'/></a>
+                            <span> <?php echo $_smarty_tpl->tpl_vars['product']->value->nombre;?>
+ </span>
                             <span>$<?php echo $_smarty_tpl->tpl_vars['product']->value->precio;?>
 </span>
                         </div>

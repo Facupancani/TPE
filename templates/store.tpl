@@ -1,6 +1,8 @@
-<div>
-    <a href='categorias'> Editar categorias</a>
-</div>
+{if $admin == TRUE }
+    <div>
+        <a href='categorias'> Editar categorias</a>
+    </div>
+{/if}
 
 <ul id='products_container'>
 
@@ -11,8 +13,9 @@
                 {foreach from=$products item=$product}
                     {if $product->id_categoria == $idCat and $product->tipo == $type}
                         <div class='product'>
-                            <img class='product_photo' src='{$product->imagen}'/>
-                            <a href='show/{$product->id}'> {$product->nombre} </a>
+                            <a href='show/{$product->id}'>
+                            <img class='product_photo' src='{$product->imagen}'/></a>
+                            <span> {$product->nombre} </span>
                             <span>${$product->precio}</span>
                         </div>
                     {/if}

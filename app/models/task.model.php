@@ -26,6 +26,17 @@ class TaskModel{
     }
 
     // GET THE CATEGORIE BY GIVEN NAME
+    public function getCategorieByName($name){
+        $db = $this->connect();
+
+        $query = $db->prepare("SELECT * FROM `categorias` WHERE `nombre` LIKE '$name'");
+        $query->execute();
+        $categoria = $query->fetch(PDO::FETCH_OBJ); //devuelve un arreglo con todos los elementos
+    
+        return $categoria;
+    }
+
+    // GET THE CATEGORIE BY AN ID
     public function getCategorieById($id){
         $db = $this->connect();
 
