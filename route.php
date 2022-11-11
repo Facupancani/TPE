@@ -1,10 +1,14 @@
 <?php
 
-include_once "app/controllers/task.controller.php";
+include_once "app/controllers/section.controller.php";
+include_once "app/controllers/product.controller.php";
+include_once "app/controllers/categorie.controller.php";
 include_once "app/controllers/auth.controller.php";
 require_once('libs/Smarty.class.php');
 
-$taskController = new taskController;
+$sectionController = new SectionController;
+$productController = new ProductController;
+$categorieController = new CategorieController;
 
 
 
@@ -40,55 +44,60 @@ switch ($params[0]) {
         $authController->logout();
         break;
 
+
     case 'home': 
-        $taskController->Home(); 
+        $sectionController->Home(); 
         break;
     case 'men':
-        $taskController->menSection(); 
+        $sectionController->menSection(); 
         break;
     case 'women':
-        $taskController->womenSection(); 
+        $sectionController->womenSection(); 
         break;
     case 'store': 
-        if(isset($params[2])) $taskController->Store($params[1], $params[2]); 
-        elseif(isset($params[1])) $taskController->Store($params[1]);
-        else $taskController->Store();
+        if(isset($params[2])) $sectionController->Store($params[1], $params[2]); 
+        elseif(isset($params[1])) $sectionController->Store($params[1]);
+        else $sectionController->Store();
         break;
+
+
     case 'getLoad':
-        $taskController->showProductForm("Cargar producto", "load", $params[1] = null);
+        $productController->showProductForm("Cargar producto", "load", $params[1] = null);
         break;
     case 'load':
-        $taskController->insertProduct();
+        $productController->insertProduct();
         break;
     case 'getEdit':
-        $taskController->showProductForm("Cargar producto", "edit/$params[1]", $params[1]);
+        $productController->showProductForm("Cargar producto", "edit/$params[1]", $params[1]);
         break;
     case 'edit':
-        $taskController->editProduct($params[1]);
+        $productController->editProduct($params[1]);
         break;
     case 'delete':
-        $taskController->deleteProduct($params[1]);
+        $productController->deleteProduct($params[1]);
         break;
     case 'show':
-        $taskController->showItem($params[1]);
+        $productController->showItem($params[1]);
         break;
+
+        
     case 'newCategorie':
-        $taskController->showCategorieForm("addCategorie");
+        $categorieController->showCategorieForm("addCategorie");
         break;
     case 'addCategorie':
-        $taskController->addCategorie();
+        $categorieController->addCategorie();
         break;
     case 'categorias':
-        $taskController->showCategorieList();
+        $categorieController->showCategorieList();
         break;
     case 'editCategorie':
-        $taskController->showCategorieForm("updateCategorie/$params[1]", $params[1]);
+        $categorieController->showCategorieForm("updateCategorie/$params[1]", $params[1]);
         break;
     case 'updateCategorie':
-        $taskController->updateCategorie($params[1]);
+        $categorieController->updateCategorie($params[1]);
         break;
     case 'deleteCategorie':
-        $taskController->deleteCategorie($params[1]);
+        $categorieController->deleteCategorie($params[1]);
         break;
     default: 
         echo('404 Page not found'); 

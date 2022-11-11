@@ -1,10 +1,10 @@
 <?php
 
-include_once "app/views/task.view.php";
-include_once "app/models/task.model.php";
+include_once "app/views/product.view.php";
+include_once "app/models/product.model.php";
 include_once "app/helpers/auth.helper.php";
 
-class TaskController{
+class ProductController{
 
     private $model;
     private $view;
@@ -12,43 +12,14 @@ class TaskController{
 
     // CONSTRUCTOR
     public function __construct(){
-        $this->model = new TaskModel();
-        $this->view = new TaskView();
+        $this->model = new ProductModel();
+        $this->view = new ProductView();
 
         // barrera de seguridad
         $this->authHelper = new AuthHelper();
 
     }
     
-
-    // HOME
-    public function Home(){
-        session_start();
-        $this->view->showHome();
-    }
-
-    // MEN SECTION
-    public function menSection(){
-        session_start();
-        $this->view->showMen();
-    }
-    
-    // WOMEN SECTION
-    public function womenSection(){
-        session_start();
-        $this->view->showWomen();
-    }
-
-    // STORE
-    public function Store($categ_name = NULL, $type = NULL){
-        $categ = NULL;
-        $categories = $this->model->getCategories();
-        if($categ_name != ""){
-            $categ = $this->model->getCategorieByName($categ_name);
-        } 
-        $products = $this->model->getProducts();
-        $this->view->showProducts($products, $categ, $type, $categories, $this->authHelper->validateAdmin());
-    }
 
     // PRODUCT
     public function showItem($id){
@@ -98,29 +69,7 @@ class TaskController{
             return;
     }
     
-    //INSERT A NEW CATEGORIE
-    function showCategorieForm($action, $id = NULL){
-        if($this->authHelper->validateAdmin() == true){
-            if(isset($id)){
-                $categorie = $this->model->getCategorieById($id);    
-                $this->view->showcategoriesForm($action, $categorie->nombre);
-            }
-            $this->view->showcategoriesForm($action);
-        }else{
-            header("Location: http://localhost/TPE/" . "home");
-            return;
-        }
-    }
-
-    function addCategorie(){
-        if($this->authHelper->validateAdmin() == true){
-
-            $name = $_POST["name"];
-            $this->model->newCategorie($name);
-        }
-        header("Location: http://localhost/TPE/" . "home");
-        return;
-    }
+    
     
     // EDIT PRODUCT
     public function editProduct($id){
@@ -153,31 +102,5 @@ class TaskController{
         return;
     }
 
-    public function showCategorieList(){
-        if($this->authHelper->validateAdmin() == true){
-            $categories = $this->model->getCategories();
-            $this->view->CategoriesList($categories);
-        }else{ 
-            header("Location: http://localhost/TPE/" . "home");
-            return;
-        }
-    }
-
-    function updateCategorie($id){
-        if($this->authHelper->validateAdmin() == true){
-            $name = $_POST["name"];
-            $this->model->updateCategorie($id, $name);
-        }
-        header("Location: http://localhost/TPE/" . "home");
-        return;
-    }
-
-    function deleteCategorie($id){
-        if($this->authHelper->validateAdmin() == true){
-            $this->model->deleteCategorie($id);
-        }
-        header("Location: http://localhost/TPE/" . "home");
-        return;
-        
-    }
+    
 }
